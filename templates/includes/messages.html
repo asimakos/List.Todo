@@ -1,0 +1,70 @@
+
+
+<div class="alert alert-success alert-dismissible alert-insert">
+	 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Η εγγραφή μόλις <strong> δημιουργήθηκε !</strong> 
+</div>
+
+<div class="alert alert-warning alert-update alert-dismissible">
+	 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Η εγγραφή μόλις <strong> ενημερώθηκε !</strong> 
+</div>
+
+<div class="alert alert-danger alert-delete alert-dismissible">
+	 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Η εγγραφή μόλις <strong> διαγράφηκε !</strong> 
+</div>
+
+<script type='text/javascript'>
+
+	$(document).ready(function() {
+
+	  
+	
+	  $('#example').DataTable({
+	        destroy: true,
+	        rowReorder:true,
+	        keepConditions:true,
+	    	"ajax":{
+	    		"url":"http://localhost:3000/tasks/list",
+	    		"dataSrc": ""
+	    	},
+	    	"columns":[
+	    	   {"data":"ID", "title":"#"},
+	    	   {"data":"title", "title":"Τίτλος"},
+	           {"data":"description", "title":"Περιγραφή"},
+	           { "data": "ID",
+		         "title": "Επισκόπηση",
+		         "render": function(data, type, row, meta){
+		            if(type === 'display'){
+		                 data = '<a class="btn btn-success btn-sm viewlink" role="button" data-toggle="modal" data-target="#viewModal" href="/tasks/todo/' + data + '" target_blank>' + '<i class="fas fa-eye"></i>' + '</a>';
+		            }
+		            return data;
+		         }
+		      },
+		      { "data": "ID",
+		         "title": "Ενημέρωση",
+		         "render": function(data, type, row, meta){
+		            if(type === 'display'){
+		                 data = '<a class="btn btn-warning btn-sm editlink" role="button" data-toggle="modal" data-target="#updateModal" href="/tasks/todo/' + data + '">' + '<i class="fas fa-edit"></i>' + '</a>';
+		            }
+		            return data;
+		         }
+		      },
+		      { "data": "ID",
+		         "title": "Διαγραφή",
+		         "render": function(data, type, row, meta){
+		            if(type === 'display'){
+		                 data = '<a class="btn btn-danger btn-sm  deletelink" role="button" href="/tasks/todo/' + data + '">' + '<i class="fas fa-trash-alt"></i>' + '</a>';
+		            }
+		            return data;
+		         }
+		      } 
+	    	],
+	    	 length: 20,
+	    });
+
+       	  
+	});
+
+</script>

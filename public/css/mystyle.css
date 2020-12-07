@@ -1,0 +1,4 @@
+
+#ReorderTable tbody td:first-child {
+           cursor: move;
+        }
